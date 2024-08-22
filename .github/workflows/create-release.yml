@@ -1,19 +1,23 @@
 name: Build Installers
 on:
-  schedule:
-    - cron: "0 4 * * *"
-  workflow_dispatch:
-    inputs:
-      publish-release:
-        description: "Publish Release"
-        required: false
-        type: boolean
-        default: true
-      pre-release:
-        description: "Pre-release"
-        required: false
-        type: boolean
-        default: true
+  #schedule:
+  #  - cron: "0 4 * * *"
+  #workflow_dispatch:
+  #  inputs:
+  #    publish-release:
+  #      description: "Publish Release"
+  #      required: false
+  #      type: boolean
+  #      default: true
+  #    pre-release:
+  #      description: "Pre-release"
+  #      required: false
+  #      type: boolean
+  #      default: true
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 concurrency:
   # make publishing release concurrent (but others trigger not)
