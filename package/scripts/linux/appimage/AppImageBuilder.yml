@@ -12,6 +12,7 @@ AppDir:
     arch: amd64
     sources:
       - sourceline: "deb http://mx.archive.ubuntu.com/ubuntu/ noble main restricted universe multiverse"
+        key_url: "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xf6ecb3762474eda9d21b7022871920d1991bc93c"
     include:
       - lua5.4
       - bash
