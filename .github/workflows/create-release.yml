@@ -165,7 +165,7 @@ jobs:
       - name: Prepare Making Appimage
         run: |
           mkdir ./AppDir
-          mv ./package/pkg-working ./AppDir
+          mv -v ./package/pkg-working ./AppDir
 
       - name: Build AppImage
         uses: AppImageCrafters/build-appimage-action@master
