@@ -164,8 +164,9 @@ jobs:
 
       - name: Prepare Making Appimage
         run: |
-          mkdir ./AppDir
+          mkdir -p ./AppDir/usr/share/icons/
           mv -T -v ./package/pkg-working/ ./AppDir/usr/
+          cp ./package/scripts/linux/appimage/quarto.svg ./AppDir/usr/share/icons/quarto.svg
           ls -l ./AppDir/
           ls -l ./AppDir/usr/
           ls -l ./AppDir/usr/bin/
