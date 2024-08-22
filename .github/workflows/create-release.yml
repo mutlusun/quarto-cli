@@ -167,6 +167,8 @@ jobs:
           mkdir ./AppDir
           mv -T -v ./package/pkg-working/ ./AppDir
           ls -l ./AppDir/
+          ls -l ./AppDir/bin/
+          ls -l ./AppDir/share/
 
       - name: Build AppImage
         uses: AppImageCrafters/build-appimage-action@master
