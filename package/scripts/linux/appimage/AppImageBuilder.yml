@@ -8,6 +8,14 @@ AppDir:
     version: latest
     exec: usr/bin/quarto
     exec_args: $@
+  apt:
+    arch: amd64
+    sources:
+      - sourceline: "deb http://mx.archive.ubuntu.com/ubuntu/ noble main restricted universe multiverse"
+        key_url: 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3b4fe6acc0b21f32'
+    include:
+      - lua5.4
+      - bash
   files:
     include:
     - /usr/bin/tools/x86_64/
