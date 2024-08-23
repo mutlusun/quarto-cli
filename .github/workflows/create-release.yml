@@ -162,17 +162,12 @@ jobs:
           ./quarto-bld prepare-dist --set-version ${{needs.configure.outputs.version}} --log-level info
           popd
 
-      - name: Prepare Making Appimage
-        run: |
-          ls -l ./AppDir/
-          ls -l ./AppDir/usr/
-          ls -l ./AppDir/usr/bin/
-          ls -l ./AppDir/usr/share/
-
       - name: Build AppImage
         uses: AppImageCrafters/build-appimage-action@master
         env:
           UPDATE_INFO: gh-releases-zsync|quarto-dev|quarto-cli|latest|*x86_64.AppImage.zsync
+          APP_VERSION: ${{ needs.configure.outputs.version }}
+          TARGET_ARCH: x86_64
         with:
           recipe: ./package/scripts/linux/appimage/AppImageBuilder.yml
 

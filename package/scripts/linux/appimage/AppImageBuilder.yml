@@ -18,7 +18,7 @@ AppDir:
     id: org.quarto.Quarto
     name: Quarto
     icon: quarto
-    version: latest
+    version: !ENV ${APP_VERSION}
     exec: "usr/bin/bash"
     exec_args: "$APPDIR/usr/bin/quarto $@"
   apt:
@@ -63,4 +63,4 @@ AppDir:
       use_host_x: true
 
 AppImage:
-  arch: x86_64
+  arch: !ENV ${TARGET_ARCH}
