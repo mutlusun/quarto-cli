@@ -186,7 +186,7 @@ jobs:
           name: AppImage
           path: .
       - run: |
-          mv quarto-${{needs.configure.outputs.version}}-x86_64.AppImage quarto
+          mv Quarto-${{needs.configure.outputs.version}}-x86_64.AppImage quarto
           chmod a+x quarto
       - run: |
           ls -lR
@@ -577,7 +577,7 @@ jobs:
           popd
 
           pushd AppImage
-          sha256sum quarto-${{needs.configure.outputs.version}}-x86_64.AppImage >> ../quarto-${{needs.configure.outputs.version}}-checksums.txt
+          sha256sum Quarto-${{needs.configure.outputs.version}}-x86_64.AppImage >> ../quarto-${{needs.configure.outputs.version}}-checksums.txt
           popd
 
           pushd Source
@@ -604,7 +604,7 @@ jobs:
             ./RHEL Zip/quarto-${{needs.configure.outputs.version}}-linux-rhel7-amd64.tar.gz
             ./Deb Installer/quarto-${{needs.configure.outputs.version}}-linux-amd64.deb
             ./Deb Arm64 Installer/quarto-${{needs.configure.outputs.version}}-linux-arm64.deb
-            ./AppImage/quarto-${{needs.configure.outputs.version}}-x86_64.AppImage
+            ./AppImage/Quarto-${{needs.configure.outputs.version}}-x86_64.AppImage
             ./Windows Installer/quarto-${{needs.configure.outputs.version}}-win.msi
             ./Windows Zip/quarto-${{needs.configure.outputs.version}}-win.zip
             ./Mac Installer/quarto-${{needs.configure.outputs.version}}-macos.pkg
