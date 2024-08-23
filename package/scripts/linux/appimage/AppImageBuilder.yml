@@ -1,4 +1,17 @@
 version: 1
+
+script:
+  # Ensure that the mksquashfs tool is installed (workaround for the AppImageCrafters/build-appimage GHA)
+  # See https://github.com/AppImageCrafters/appimage-builder/issues/271
+  - which mksquashfs || apt install squashfs-tools
+  # Remove any previous build
+  - rm -rf ./AppDir | true
+  # Make appdir
+  - mkdir ./AppDir
+  - cp -T -r ./package/pkg-working/ ./AppDir/usr/
+  - cp ./package/scripts/linux/appimage/quarto.svg ./AppDir/
+  - cp ./package/scripts/linux/appimage/quarto.desktop ./AppDir/
+
 AppDir:
   path: ./AppDir
   app_info:
@@ -11,10 +24,15 @@ AppDir:
   apt:
     arch: amd64
     sources:
-      - sourceline: "deb http://mx.archive.ubuntu.com/ubuntu/ noble main restricted universe multiverse"
+      - sourceline: "deb http://archive.ubuntu.com/ubuntu/ noble main restricted universe multiverse"
+        key_url: "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xf6ecb3762474eda9d21b7022871920d1991bc93c"
+      - sourceline: "deb http://archive.ubuntu.com/ubuntu/ noble-updates main restricted universe multiverse"
+        key_url: "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xf6ecb3762474eda9d21b7022871920d1991bc93c"
+      - sourceline: "deb http://archive.ubuntu.com/ubuntu/ noble-security main restricted universe multiverse"
         key_url: "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xf6ecb3762474eda9d21b7022871920d1991bc93c"
     include:
       - bash
+    exclude: []
   files:
     include:
     - /usr/bin/tools/x86_64/
@@ -43,5 +61,6 @@ AppDir:
       image: appimagecrafters/tests-env:ubuntu-xenial
       command: ./AppRun
       use_host_x: true
+
 AppImage:
   arch: x86_64

@@ -164,10 +164,6 @@ jobs:
 
       - name: Prepare Making Appimage
         run: |
-          mkdir ./AppDir/
-          mv -T ./package/pkg-working/ ./AppDir/usr/
-          mkdir -p ./AppDir/usr/share/icons/
-          cp ./package/scripts/linux/appimage/quarto.svg ./AppDir/usr/share/icons/quarto.svg
           ls -l ./AppDir/
           ls -l ./AppDir/usr/
           ls -l ./AppDir/usr/bin/
@@ -179,6 +175,7 @@ jobs:
           UPDATE_INFO: gh-releases-zsync|quarto-dev|quarto-cli|latest|*x86_64.AppImage.zsync
         with:
           recipe: ./package/scripts/linux/appimage/AppImageBuilder.yml
+
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
