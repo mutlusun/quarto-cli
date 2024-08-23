@@ -4,13 +4,16 @@ script:
   # Ensure that the mksquashfs tool is installed (workaround for the AppImageCrafters/build-appimage GHA)
   # See https://github.com/AppImageCrafters/appimage-builder/issues/271
   - which mksquashfs || apt install squashfs-tools
-  # Remove any previous build
+  # Remove any previous build.
   - rm -rf ./AppDir | true
-  # Make appdir
+  # Make appdir and copy quarto files.
   - mkdir ./AppDir
   - cp -T -r ./package/pkg-working/ ./AppDir/usr/
-  - cp ./package/scripts/linux/appimage/quarto.svg ./AppDir/
-  - cp ./package/scripts/linux/appimage/quarto.desktop ./AppDir/
+  # Add icon and desktop file.
+  - mkdir -p ./AppDir/usr/share/icons
+  - cp ./package/scripts/linux/appimage/quarto.svg ./AppDir/usr/share/icons/
+  - mkdir -p ./AppDir/usr/share/applications/
+  - cp ./package/scripts/linux/appimage/quarto.desktop ./AppDir/usr/share/applications/
 
 AppDir:
   path: ./AppDir
