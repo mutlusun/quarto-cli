@@ -1,0 +1,70 @@
+version: 1
+
+script:
+  # Ensure that the mksquashfs tool is installed (workaround for the AppImageCrafters/build-appimage GHA)
+  # See https://github.com/AppImageCrafters/appimage-builder/issues/271
+  - which mksquashfs || apt install squashfs-tools
+  # Remove any previous build.
+  - rm -rf ./AppDir | true
+  # Make appdir and copy quarto files.
+  - mkdir ./AppDir
+  - cp -T -r ./package/pkg-working/ ./AppDir/usr/
+  # Add icon and desktop file.
+  - mkdir -p ./AppDir/usr/share/icons
+  - cp ./package/scripts/linux/appimage/quarto.svg ./AppDir/usr/share/icons/
+  - mkdir -p ./AppDir/usr/share/applications/
+  - cp ./package/scripts/linux/appimage/quarto.desktop ./AppDir/usr/share/applications/
+
+AppDir:
+  path: ./AppDir
+  app_info:
+    id: org.quarto.Quarto
+    name: Quarto
+    icon: quarto
+    version: !ENV ${APP_VERSION}
+    exec: "usr/bin/bash"
+    exec_args: "$APPDIR/usr/bin/quarto $@"
+  apt:
+    arch: amd64
+    sources:
+      - sourceline: "deb http://archive.ubuntu.com/ubuntu/ noble main restricted universe multiverse"
+        key_url: "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xf6ecb3762474eda9d21b7022871920d1991bc93c"
+      - sourceline: "deb http://archive.ubuntu.com/ubuntu/ noble-updates main restricted universe multiverse"
+        key_url: "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xf6ecb3762474eda9d21b7022871920d1991bc93c"
+      - sourceline: "deb http://archive.ubuntu.com/ubuntu/ noble-security main restricted universe multiverse"
+        key_url: "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xf6ecb3762474eda9d21b7022871920d1991bc93c"
+    include:
+      - coreutils
+      - bash
+    exclude: []
+  files:
+    include:
+    - /usr/bin/tools/x86_64/
+    - /usr/bin/vendor/
+    - /usr/bin/quarto
+    - /usr/bin/quarto.js
+    - /usr/share/
+  test:
+    fedora:
+      image: appimagecrafters/tests-env:fedora-30
+      command: ./AppRun
+      use_host_x: true
+    debian:
+      image: appimagecrafters/tests-env:debian-stable
+      command: ./AppRun
+      use_host_x: true
+    arch:
+      image: appimagecrafters/tests-env:archlinux-latest
+      command: ./AppRun
+      use_host_x: true
+    centos:
+      image: appimagecrafters/tests-env:centos-7
+      command: ./AppRun
+      use_host_x: true
+    ubuntu:
+      image: appimagecrafters/tests-env:ubuntu-xenial
+      command: ./AppRun
+      use_host_x: true
+
+AppImage:
+  arch: !ENV ${TARGET_ARCH}
