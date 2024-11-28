@@ -22,5 +22,5 @@ chmod a+x $OUTPUT_DIR/AppRun
 # Get and run appimagetool
 wget https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage
 chmod a+x ./appimagetool-x86_64.AppImage
-apt install desktop-file-utils
+sudo apt install desktop-file-utils
 ARCH=$TARGET_ARCH ./appimagetool-x86_64.AppImage $OUTPUT_DIR
