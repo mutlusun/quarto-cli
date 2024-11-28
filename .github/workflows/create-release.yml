@@ -175,7 +175,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: AppImage
-          path: "./*.AppImage*"
+          path: Quarto-${{needs.configure.outputs.version}}-x86_64.AppImage
 
   test-appimage:
     runs-on: ubuntu-latest
