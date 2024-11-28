@@ -1,22 +1,24 @@
 #!/bin/sh
 
+OUTPUT_DIR="./AppDir"
+
 # Remove any previous build.
-rm -rf ./AppDir | true
+rm -rf $OUTPUT_DIR | true
 
 # Make appdir and copy quarto files.
-mkdir ./AppDir
-cp -T -r ./package/pkg-working/ ./AppDir/usr/
+mkdir .$OUTPUT_DIR
+cp -T -r ./package/pkg-working/ $OUTPUT_DIR/usr/
 
 # Add icon and desktop file.
-mkdir -p ./AppDir/usr/share/icons
-cp ./package/scripts/linux/appimage/quarto.svg ./AppDir/usr/share/icons/
-mkdir -p ./AppDir/usr/share/applications/
-cp ./package/scripts/linux/appimage/quarto.desktop ./AppDir/usr/share/applications/
+mkdir -p $OUTPUT_DIR/usr/share/icons
+cp ./package/scripts/linux/appimage/quarto.svg $OUTPUT_DIR/usr/share/icons/
+mkdir -p $OUTPUT_DIR/usr/share/applications/
+cp ./package/scripts/linux/appimage/quarto.desktop $OUTPUT_DIR/usr/share/applications/
 
 # Add AppRun file
-cp ./package/scripts/linux/appimage/AppRun ./AppDir/AppRun
-chmod a+x ./AppDir/AppRun
+cp ./package/scripts/linux/appimage/AppRun $OUTPUT_DIR/AppRun
+chmod a+x $OUTPUT_DIR/AppRun
 
 # Get and run appimagetool
 wget https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage
-ARCH=$TARGET_ARCH ./appimagetool-x86_64.AppImage ./AppDir
+ARCH=$TARGET_ARCH ./appimagetool-x86_64.AppImage $OUTPUT_DIR
