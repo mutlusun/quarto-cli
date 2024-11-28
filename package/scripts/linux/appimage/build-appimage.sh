@@ -20,4 +20,4 @@ chmod a+x $OUTPUT_DIR/AppRun
 # Get and run appimagetool
 wget https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage
 chmod a+x ./appimagetool-x86_64.AppImage
-ARCH=$TARGET_ARCH ./appimagetool-x86_64.AppImage $OUTPUT_DIR
+ARCH=$TARGET_ARCH ./appimagetool-x86_64.AppImage $OUTPUT_DIR Quarto-${VERSION}-${TARGET_ARCH}.AppImage
